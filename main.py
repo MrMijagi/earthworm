@@ -19,16 +19,16 @@ class Game(object):
         self.screen_size=self.screen_width,self.screen_height=1000, 600
         self.screen = pygame.display.set_mode(self.screen_size, DOUBLEBUF)
         pygame.display.set_caption("Curve fever")
-        self.segment = pygame.image.load("Segment.png").convert_alpha()
-        self.glowa = pygame.image.load("Glowa.png").convert_alpha()
-        self.ziemia = pygame.image.load("Ziemia.png").convert()
-        self.pajak1 = pygame.image.load("Pajak1.png").convert_alpha()
-        self.pajak2 = pygame.image.load("Pajak2.png").convert_alpha()
-        self.pajak3 = pygame.image.load("Pajak3.png").convert_alpha()
-        self.pajak4 = pygame.image.load("Pajak4.png").convert_alpha()
-        self.punkt = pygame.image.load("Punkt.png").convert_alpha()
-        self.serce = pygame.image.load("Serce.png").convert_alpha()
-        self.music_score = pygame.mixer.music.load("Score.mp3")
+        self.segment = pygame.image.load("assets/segment.png").convert_alpha()
+        self.glowa = pygame.image.load("assets/head.png").convert_alpha()
+        self.ziemia = pygame.image.load("assets/underground.png").convert()
+        self.pajak1 = pygame.image.load("assets/spider_1.png").convert_alpha()
+        self.pajak2 = pygame.image.load("assets/spider_2.png").convert_alpha()
+        self.pajak3 = pygame.image.load("assets/spider_3.png").convert_alpha()
+        self.pajak4 = pygame.image.load("assets/spider_4.png").convert_alpha()
+        self.punkt = pygame.image.load("assets/point.png").convert_alpha()
+        self.serce = pygame.image.load("assets/heart.png").convert_alpha()
+        self.music_score = pygame.mixer.music.load("sounds/score.mp3")
         self.gamestate = 4
         self.ltlo = [self.ziemia]
         self.pajak = self.pajak4
@@ -144,13 +144,13 @@ class Game(object):
                     else:
                         self.gamestate = 6
                         if self.cur_lvl == 0:
-                            self.show_wyniki('Score_Easy.txt')
+                            self.show_wyniki("scores/easy.txt")
                         elif self.cur_lvl == 1:
-                            self.show_wyniki('Score_Medium.txt')
+                            self.show_wyniki("scores/medium.txt")
                         elif self.cur_lvl == 2:
-                            self.show_wyniki('Score_Hard.txt')
+                            self.show_wyniki("scores/hard.txt")
                         elif self.cur_lvl == 3:
-                            self.show_wyniki('Score_Expert.txt')
+                            self.show_wyniki("scores/expert.txt")
                 if event.type==KEYDOWN:
                     if event.key==K_UP:
                             self.cur_lvl -= 1
@@ -425,7 +425,7 @@ class Game(object):
                 self.new_pos_spr(self.lscore_x, self.lscore_y, 1100, 568)
                 if i % 10 == 0:
                     self.new_pos_spr(self.llives_x, self.llives_y, 1100, 500)
-        self.music_countdown = pygame.mixer.music.load("Countdown.mp3")
+        self.music_countdown = pygame.mixer.music.load("sounds/countdown.mp3")
         if self.is_music == "ON":
             pygame.mixer.music.play(1)
         while self.gamestate == 5:
@@ -510,7 +510,7 @@ class Game(object):
             #kolizja - punkty
             if len(self.lscore_x) > 0 and self.is_live_score == 1:
                 if self.collision_circle_square(0):
-                    pygame.mixer.music.load("Score.mp3")
+                    pygame.mixer.music.load("sounds/score.mp3")
                     if self.is_music == "ON":
                         pygame.mixer.music.play(1)
                     self.count += 1
@@ -537,17 +537,17 @@ class Game(object):
                     self.screen.fill((czarny))
                     self.screen.blit(self.ziemia,(0,0))
                     if self.is_music == "ON":
-                        pygame.mixer.music.load("Koniec.mp3")
+                        pygame.mixer.music.load("sounds/game_over.mp3")
                     if self.is_music == "ON":
                         pygame.mixer.music.play(1)
                     if self.lvl == 0:
-                        self.new_score(self.count, 'Score_Easy.txt')
+                        self.new_score(self.count, "scores/easy.txt")
                     elif self.lvl == 1:
-                        self.new_score(self.count, 'Score_Medium.txt')
+                        self.new_score(self.count, "scores/medium.txt")
                     elif self.lvl == 2:
-                        self.new_score(self.count, 'Score_Hard.txt')
+                        self.new_score(self.count, "scores/hard.txt")
                     else:
-                        self.new_score(self.count, 'Score_Expert.txt')
+                        self.new_score(self.count, "scores/expert.txt")
                     while self.gamestate == 7:
                         for event in pygame.event.get():
                             if event.type==QUIT:
@@ -564,7 +564,7 @@ class Game(object):
                         pygame.display.update()
                         pygame.display.flip()
                 if self.collision_square(self.lsprite_x, self.lsprite_y, 0, 110, 42, 128, 32) and self.lives > 0:
-                    pygame.mixer.music.load("StrataZycia.mp3")
+                    pygame.mixer.music.load("sounds/heart_lost.mp3")
                     if self.is_music == "ON":
                         pygame.mixer.music.play(1,0.5)
                     self.lives -= 1
@@ -589,13 +589,13 @@ class Game(object):
                     pygame.display.flip()
                     pygame.time.delay(100)
                     if self.lvl == 0:
-                        self.new_score(self.count, 'Score_Easy.txt')
+                        self.new_score(self.count, "scores/easy.txt")
                     elif self.lvl == 1:
-                        self.new_score(self.count, 'Score_Medium.txt')
+                        self.new_score(self.count, "scores/medium.txt")
                     elif self.lvl == 2:
-                        self.new_score(self.count, 'Score_Hard.txt')
+                        self.new_score(self.count, "scores/hard.txt")
                     else:
-                        self.new_score(self.count, 'Score_Expert.txt')
+                        self.new_score(self.count, "scores/expert.txt")
                 while self.gamestate == 8:
                     for event in pygame.event.get():
                         if event.type==QUIT:
